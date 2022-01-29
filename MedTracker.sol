@@ -10,17 +10,21 @@ contract MedTracker {
         uint _mid;
         string _name;
         string _address;
-    }
+    } 
     
     Manufacturer man;
 
     modifier onlyOwner() {
+    
+        // modifier that makes only the owner of contract to call this function
         require(msg.sender == man._Address);
+        // raise error
         _;
-    }
+
+    }  
 
     struct Medicine {
-        uint _medid;
+        uint _medid;    // Medicine Id
         uint _bno;      // Batch No:
         string _Name;   // Medicine Name
         string _mName;  // Manufacture Name
@@ -31,9 +35,9 @@ contract MedTracker {
 
     constructor() public {
         
-       man._Address = msg.sender;
+       man._Address = msg.sender; // set the address of Manufacturer as the owner of contract
        
-    }
+    } 
 
     function addMedicine(
         uint _medid,
@@ -47,18 +51,19 @@ contract MedTracker {
         public
         onlyOwner
     {
-        incrementCount();
+        incrementCount(); 
         drugChain[MedCount] = Medicine(_medid, _bno, _Name, _mName, _price, _mDate, _eDate);
+                            // create a new medicine in the array
     }
 
     function incrementCount() internal {
-        MedCount += 1;
+        MedCount += 1;      // increment medicine count
     }
 
 
 
-    function print() public view returns(address){
-        return man._Address;
+    function getManufacturer() public view returns(address){
+        return man._Address; // get the address of Manufacturer
 
 } 
    
